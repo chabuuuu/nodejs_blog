@@ -6,12 +6,19 @@ const port = 3000
 const handlebars = require('express-handlebars')
 
 const path = require('path')
+const { log } = require('console')
 
 
 app.use(express.static(path.join(__dirname, 'public')))
 
+app.use(express.urlencoded({
+  extended: true
+}
+))
+app.use(express.json())
+
 // HTTP LOG
-app.use(morgan('combined'))
+// app.use(morgan('combined'))
 
 
 //template engine
@@ -28,8 +35,23 @@ app.get('/', (req, res) => {
 
 //render
 app.get('/news', (req, res) => {
+  console.log(req.query.q)
   res.render('news')
 })
+
+//search
+app.get('/search', (req, res) => {
+  res.render('search')
+})
+
+
+//search
+app.post('/search', (req, res) => {
+  console.log(req.body);
+  res.render('search')
+})
+
+
 
 
 app.listen(port, () => {
