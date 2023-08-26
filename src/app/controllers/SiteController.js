@@ -1,15 +1,16 @@
 const Item = require('../models/Item');
-
+const { multiMongooseToObject } = require('../../util/mongoose.js');
 class SiteController {
     //[Get] /
-    async home(req, res) {
+    async home(req, res, next) {
         try {
-            const items = await Item.find({});
-            res.json(items);
+            var items = await Item.find({});
+            res.render('home', {
+                items: multiMongooseToObject(items),
+            });
         } catch (error) {
-            res.status(400).send('Bad Request');
+            next(error);
         }
-        // res.render('home');
     }
 
     //[Get] /search

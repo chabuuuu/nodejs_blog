@@ -1,0 +1,36 @@
+<div class="mt-4">
+    <div class="row">
+        <div class="col-lg-3">
+            <button>Mua ngay</button>
+            <button>Thêm vào giỏ hàng</button>
+        </div>
+        <div class="col-lg-9">
+            <h2>{{name}}</h2>
+            <div class="col-sm-5 col-sm-5">
+                                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                </ol>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                    <img class="d-block w-100" src="{{image}}" alt="First slide">
+                    </div>
+                    <div class="carousel-item">
+                    <iframe class="d-block w-100" width="560" height="315" src="https://www.youtube.com/embed/{{video}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    </div>
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+                </div>
+            </div>
+            <p>{{description}}</p>
+        </div>
+    </div>
+</div>
