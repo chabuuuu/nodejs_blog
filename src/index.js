@@ -4,6 +4,7 @@ const app = express()
 const morgan = require('morgan')
 const port = 3000
 const handlebars = require('express-handlebars')
+const route = require('./routes')
 
 const path = require('path')
 const { log } = require('console')
@@ -25,33 +26,10 @@ app.use(express.json())
 app.engine('hbs', handlebars.engine({extname: '.hbs'}));
 app.set('view engine','hbs')
 app.set('views', path.join(__dirname, 'resources/views'));
-console.log(path.join(__dirname, 'resources/views'))
+// console.log(path.join(__dirname, 'resources/views'))
 
-
-//render
-app.get('/', (req, res) => {
-  res.render('home')
-})
-
-//render
-app.get('/news', (req, res) => {
-  console.log(req.query.q)
-  res.render('news')
-})
-
-//search
-app.get('/search', (req, res) => {
-  res.render('search')
-})
-
-
-//search
-app.post('/search', (req, res) => {
-  console.log(req.body);
-  res.render('search')
-})
-
-
+//Route
+route(app);
 
 
 app.listen(port, () => {
