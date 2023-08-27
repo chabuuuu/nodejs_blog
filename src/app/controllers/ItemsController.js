@@ -32,6 +32,29 @@ class ItemsController {
             next(error);
         }
     }
+
+    //[Get] /items/id/edit
+    async edit(req, res, next) {
+        try {
+            var value = await Item.findById(req.params.id).exec();
+            if (value == null) {
+                res.send('404');
+                return;
+            }
+            res.render('items/edit', mongooseToObject(value));
+        } catch (error) {
+            next(error);
+        }
+    }
+    //[PUT] /items/id
+    async update(req, res, next) {
+        try {
+            await Item.updateOne({ _id: req.params.id }, req.body);
+            res.redirect('/me/stored/items');
+        } catch (error) {
+            next(error);
+        }
+    }
 }
 
 module.exports = new ItemsController();
