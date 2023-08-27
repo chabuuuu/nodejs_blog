@@ -55,6 +55,15 @@ class ItemsController {
             next(error);
         }
     }
+    //[DELETE] /items/id
+    async delete(req, res, next) {
+        try {
+            await Item.deleteOne({ _id: req.params.id });
+            res.redirect('back');
+        } catch (error) {
+            next(error);
+        }
+    }
 }
 
 module.exports = new ItemsController();
