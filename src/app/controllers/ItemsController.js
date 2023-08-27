@@ -65,6 +65,15 @@ class ItemsController {
             next(error);
         }
     }
+    //[DELETE] /items/id/force-delete
+    async forceDelete(req, res, next) {
+        try {
+            await Item.deleteOne({ _id: req.params.id });
+            res.redirect('back');
+        } catch (error) {
+            next(error);
+        }
+    }
     //[Get] /items/trash
     async trash(req, res, next) {
         try {

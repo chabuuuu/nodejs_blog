@@ -72,12 +72,12 @@
     //Lang nghe nut delete
     $('#delete-item-Modal').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget) // Button that triggered the modal
-    itemId = button.data('id') // Extract info from data-* attributes
+    itemId = button.data('id') // Extract info from data-* attributes 
  
 })
     //Lang nghe nut xac nhan delete
     btnDeleteItem.onclick = function(){
-        deleteForm.action = '/items/'+itemId+'?_method=DELETE';
+        deleteForm.action = '/items/'+itemId+'/force-delete?_method=DELETE';
         deleteForm.submit();
     }
 
