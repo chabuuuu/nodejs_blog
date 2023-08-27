@@ -9,7 +9,25 @@ class ItemsController {
                 res.send('404');
                 return;
             }
-            res.render('items/chiTiet.hbs', mongooseToObject(value));
+            res.render('items/chiTiet', mongooseToObject(value));
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    //[Get] /items/create
+    async create(req, res, next) {
+        res.render('items/create');
+    }
+
+    //[Post] /items/store
+    async store(req, res, next) {
+        try {
+            const formData = req.body;
+            formData.image =
+                'https://i.ytimg.com/vi/' + req.body.video + '/hq720.jpg';
+            await Item.create(formData);
+            res.redirect('/');
         } catch (error) {
             next(error);
         }
