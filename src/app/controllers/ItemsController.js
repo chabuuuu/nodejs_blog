@@ -1,5 +1,6 @@
 const Item = require('../models/Item');
 const { mongooseToObject } = require('../../util/mongoose');
+const { multiMongooseToObject } = require('../../util/mongoose');
 class ItemsController {
     //[Get] /items/:slug
     async chiTiet(req, res, next) {
@@ -58,7 +59,27 @@ class ItemsController {
     //[DELETE] /items/id
     async delete(req, res, next) {
         try {
-            await Item.deleteOne({ _id: req.params.id });
+            await Item.delete({ _id: req.params.id });
+            res.redirect('back');
+        } catch (error) {
+            next(error);
+        }
+    }
+    //[Get] /items/trash
+    async trash(req, res, next) {
+        try {
+            var items = await Item.findWithDeleted({ deleted: true });
+            res.render('me/trash-items', {
+                items: multiMongooseToObject(items),
+            });
+        } catch (error) {
+            next(error);
+        }
+    }
+    //[Patch] /items/id/restore
+    async restore(req, res, next) {
+        try {
+            await Item.restore({ _id: req.params.id });
             res.redirect('back');
         } catch (error) {
             next(error);

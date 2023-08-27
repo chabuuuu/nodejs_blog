@@ -1,6 +1,6 @@
 <mt-4>
-    <h3 class="mt-4">Shop cua toi</h3>
-    <a href="/items/trash">Thùng rác</a>
+    <h3 class="mt-4">Sản phẩm đã xóa</h3>
+    <a href="/me/stored/items">Danh sách sản phẩm</a>
     <table class="table mt-4">
     <thead>
         <tr>
@@ -19,9 +19,15 @@
         <td>{{this.cost}}</td>
         <td>{{this.createdAt}}</td>
         <td>
-            <a href="/items/{{this._id}}/edit" class="btn btn-link">Sửa</a>
-            <a href="" class="btn btn-link" data-toggle="modal" data-id="{{this._id}}" data-target="#delete-item-Modal">Xóa<a>
+            <a href="" class="btn btn-link btn-restore" data-id="{{this._id}}">Khôi phục</a>
+            <a href="" class="btn btn-link" data-toggle="modal" data-id="{{this._id}}" data-target="#delete-item-Modal">Xóa vĩnh viễn<a>
         </td>
+        </tr>
+        {{else}}
+        <tr>
+          <td colspan="4" class="text-center">
+            Thùng rác trống
+          </td>
         </tr>
         {{/each}}
     </tbody>
@@ -53,23 +59,36 @@
 
 {{! Hidden form}}
 <form name="delete-item-form" method="POST"></form>
+<form name="restore-item-form" method="POST"></form>
 
 <script>
     document.addEventListener('DOMContentLoaded', function(){
-
+        var restoreBtn = $('.btn-restore');
         var itemId;
         var deleteForm = document.forms['delete-item-form'];
+        var restoreForm = document.forms['restore-item-form'];
         var btnDeleteItem = document.getElementById('btn-delete-item');
 
+    //Lang nghe nut delete
     $('#delete-item-Modal').on('show.bs.modal', function (event) {
-  var button = $(event.relatedTarget) // Button that triggered the modal
+    var button = $(event.relatedTarget) // Button that triggered the modal
     itemId = button.data('id') // Extract info from data-* attributes
  
 })
+    //Lang nghe nut xac nhan delete
     btnDeleteItem.onclick = function(){
         deleteForm.action = '/items/'+itemId+'?_method=DELETE';
         deleteForm.submit();
     }
-    });
+
+    restoreBtn.click(
+        function (e){
+            e.preventDefault();
+            var idData = $(this).data('id');
+            restoreForm.action = '/items/'+idData+'/restore'+'?_method=PATCH';
+            restoreForm.submit();
+        }
+    );
+});
 
 </script>
